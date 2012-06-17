@@ -67,7 +67,7 @@ public final class JsonResolverAbsoluteURITest
         for (final Map.Entry<String, JsonNode> entry: map.entrySet()) {
             uri = URI.create(entry.getKey());
             schema = entry.getValue();
-            when(manager.getContent(uri)).thenReturn(schema);
+            registry.register(uri, schema);
         }
 
         resolver = new JsonResolver(registry);

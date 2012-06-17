@@ -77,4 +77,19 @@ public class SchemaRegistry
 
         return container;
     }
+
+    public void register(final URI uri, final JsonNode schema)
+        throws JsonSchemaException
+    {
+        if (containers.containsKey(uri))
+            throw new JsonSchemaException("URI \"" + uri + "\" is already "
+                + "registered");
+
+        if (!new JsonRef(uri).isAbsolute())
+            throw new JsonSchemaException("cannot register non absolute URI "
+                + uri);
+
+        containers.put(uri, new SchemaContainer(uri, schema));
+
+    }
 }
